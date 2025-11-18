@@ -40,7 +40,7 @@ class TestSimulatePlugInCount:
             }
         )
         result = simulator.simulate_plug_in_count(population)
-        assert result.sum() == 24
+        assert result.sum() == 24  # 2 sets of 12 half-hour intervals
 
     def test_overnight_plug_in(self, simulator):
         """Test with a driver plugged in overnight, this should be wrapped
@@ -136,7 +136,6 @@ class TestCalculateSocProfile:
             end_soc=0.8,
         )
 
-        # SoC should increase during charging (6:00 to 12:00)
         charging_indices = pd.timedelta_range(
             start="6h", end="12h", freq="30min"
         )
@@ -152,7 +151,6 @@ class TestCalculateSocProfile:
             end_soc=0.8,
         )
 
-        # SoC should decrease during discharging
         discharging_indices = pd.timedelta_range(
             start="16h", end="23.5h", freq="30min"
         )

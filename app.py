@@ -69,9 +69,10 @@ fig.update_yaxes(
     title_text="State of Charge", secondary_y=True, showgrid=False
 )
 fig.update_layout(
-    title="% EV Plugged in & State of Charge Distribution Over 24 Hours"
+    title="Periods when EV plugged in & state of charge over 24 hours"
 )
 st.plotly_chart(fig)
+st.text("Note: 1 can be interpreted as plugged-in, 0 as not plugged-in")
 
 # POPULATION LEVEL
 st.subheader("Option 2: View simulation results at population level")
@@ -149,14 +150,14 @@ fig.add_trace(
 )
 
 fig.update_layout(
-    title="EV State of Charge Distribution Over 24 Hours",
-    xaxis_title="Hour of Day",
-    yaxis_title="State of Charge",
+    title="EV state of charge distribution vs % plugged in over 24 Hours",
+    xaxis_title="Time of Day",
     template="plotly_white",
 )
 
-fig.update_xaxes(title_text="Time of day")
-fig.update_yaxes(title_text="EV plugged in", secondary_y=False, showgrid=False)
+fig.update_yaxes(
+    title_text="% EV plugged in", secondary_y=False, showgrid=False
+)
 fig.update_yaxes(
     title_text="State of Charge", secondary_y=True, showgrid=False
 )

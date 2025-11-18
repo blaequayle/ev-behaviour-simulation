@@ -22,9 +22,9 @@ Investigate how much flexibility is available from the large number of distribut
 
 - It uses the parameters for the 6 archetypes that were provided, and their relative proportion in the population, to create individual representations for each driver
 
-- The tasks requires both individual and population level insights to be communicated and shared, so the a Streamlit dashboard was built to surface the output from the simulation.
+- The tasks requires both individual and population level insights to be communicated and shared, so a Streamlit dashboard has been built to visualise the output from the simulation.
 
-- It's available here. The population size simulated can be configured via the app. It can return a visualisation of a simulation for an individual user within a specific archetype, or on a population level.
+- It's available [here](https://ev-behaviour-simulation.streamlit.app/). The population size simulated can be configured via the app. It can return a visualisation of a simulation for an individual user within a specific archetype, or on a population level.
 
 
 #### What assumptions have been taken?
