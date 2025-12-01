@@ -26,10 +26,12 @@ st.subheader(
 )
 driver_type = st.selectbox(
     "The available archetypes are:",
-    DriverType,
+    [i.value for i in DriverType],
 )
 
-single_user = population[population["driver_type"] == driver_type].sample(n=1)
+single_user = population[
+    population["driver_type"] == DriverType(driver_type)
+].sample(n=1)
 plugged_in_count_single_user = simulator.simulate_plug_in_count(single_user)
 state_of_charge_single_user = simulator.simulate_state_of_charge(single_user)
 st.text(

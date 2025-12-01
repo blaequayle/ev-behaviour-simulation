@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import time
+from datetime import datetime
 from itertools import count
 
 import numpy as np
@@ -13,8 +13,8 @@ id_counter = count()
 @dataclass
 class EVDriver:
     driver_type: DriverType
-    plug_in_time: time
-    plug_out_time: time
+    plug_in_time: datetime
+    plug_out_time: datetime
     soc_start: float
     soc_end: float
     driver_id: int = field(default_factory=lambda: next(id_counter))
@@ -27,6 +27,22 @@ class EVBehaviourSimulator:
     population_size: int = 5000
     driver_types: dict = field(default_factory=lambda: archetypes)
 
+    def _add_time_variability(
+        self, base_time: datetime, hours_range: int = 2
+    ) -> datetime:
+        """Add random hour variability to a datetime, keeping other components unchanged.
+
+        Args:
+            base_time: The base datetime to modify
+            hours_range: Maximum hours to vary in either direction (default: 2)
+
+        Returns:
+            A datetime object with modified hour
+        """
+        hour_offset = np.random.randint(-hours_range, hours_range + 1)
+        new_hour = (base_time.hour + hour_offset) % 24
+        return base_time.replace(hour=new_hour)
+
     def _create_ev_driver(
         self,
         driver_type: DriverType,
@@ -36,8 +52,12 @@ class EVBehaviourSimulator:
     ) -> EVDriver:
         return EVDriver(
             driver_type=driver_type,
-            plug_in_time=driver_params["plug_in_time"],
-            plug_out_time=driver_params["plug_out_time"],
+            plug_in_time=self._add_time_variability(
+                driver_params["plug_in_time"]
+            ),
+            plug_out_time=self._add_time_variability(
+                driver_params["plug_out_time"]
+            ),
             soc_start=driver_params["soc_start"](size)[i],
             soc_end=driver_params["soc_end"],
         )
